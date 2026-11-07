@@ -1,0 +1,107 @@
+
+/* General page styling */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f4f7fb;
+  color: #243247;
+  line-height: 1.6;
+}
+
+/* Header */
+header {
+  background-color: #12355b;
+  color: white;
+  padding: 24px 20px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0 0 15px;
+  font-size: 1.8rem;
+}
+
+/* Navigation */
+nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+nav a:hover,
+nav a:focus-visible {
+  background-color: #2f80ed;
+}
+
+/* Main content */
+main {
+  max-width: 1000px;
+  min-height: 60vh;
+  margin: 35px auto;
+  padding: 35px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+main h2 {
+  color: #12355b;
+  margin-top: 0;
+}
+
+main h3 {
+  color: #2464a4;
+}
+
+section {
+  margin-top: 25px;
+  padding: 20px;
+  background-color: #eef5ff;
+  border-radius: 8px;
+}
+
+/* Footer */
+footer {
+  background-color: #12355b;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+footer p {
+  margin: 0;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 1.4rem;
+  }
+
+  nav {
+    gap: 5px;
+  }
+
+  nav a {
+    padding: 8px 10px;
+    font-size: 0.9rem;
+  }
+
+  main {
+    margin: 15px;
+    padding: 20px;
+  }
+}
