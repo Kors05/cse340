@@ -105,3 +105,19 @@ footer p {
     padding: 20px;
   }
 }
+
+/* Project showcase image */
+.project-showcase {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.project-image {
+  display: block;
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  margin: 20px auto;
+  border-radius: 10px;
+  object-fit: cover;
+}
