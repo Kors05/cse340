@@ -3,7 +3,9 @@ import { Pool } from "pg";
 // Create a PostgreSQL connection pool
 const pool = new Pool({
   connectionString: process.env.DB_URL,
-  ssl: true,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
 // Enable SQL query logging during development
