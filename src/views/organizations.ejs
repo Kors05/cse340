@@ -1,21 +1,27 @@
-<%- include("partials/header") %>
+<%- include('partials/header') %>
 
 <main>
-  <h2><%= title %></h2>
+  <h1><%= title %></h1>
 
-  <p>
-    Welcome to the Organizations page.
-    Here, you can explore organizations and
-    learn about their activities.
-  </p>
+  <p>Here are a few of our partner organizations:</p>
 
-  <section>
-    <h3>About Organizations</h3>
-    <p>
-      This section will provide information
-      about different organizations and their projects.
-    </p>
-  </section>
+  <ul>
+    <% organizations.forEach(organization => { %>
+      <li>
+        <strong><%= organization.name %></strong>
+        <p><%= organization.description %></p>
+        <p>
+          Contact:
+          <%= organization.contact_email %>
+        </p>
+        <img
+          src="/images/<%= organization.logo_filename %>"
+          alt="<%= organization.name %> logo"
+          width="150"
+        >
+      </li>
+    <% }); %>
+  </ul>
 </main>
 
-<%- include("partials/footer") %>
+<%- include('partials/footer') %>

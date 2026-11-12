@@ -1,6 +1,9 @@
+import "dotenv/config";
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
+import { testConnection } from "./src/models/db.js";
+import { getAllOrganizations } from "./src/models/organizations.js";
 
 // Get the current directory
 const __filename = fileURLToPath(import.meta.url);
@@ -29,10 +32,19 @@ app.get("/", (req, res) => {
 });
 
 // Organizations route
-app.get("/organizations", (req, res) => {
-  res.render("organizations", {
-    title: "Organizations"
-  });
+app.get("/organizations", async (req, res) => {
+  try {
+    const organizations = await getAllOrganizations();
+    console.log("ORGANIZATIONS ROUTE TEST:", organizations);
+
+    res.render("organizations", {
+      title: "Organizations",
+      organizations: organizations
+    });
+  } catch (error) {
+    console.error("Error retrieving organizations:", error);
+    res.status(500).send("Error loading organizations");
+  }
 });
 
 // Projects route
@@ -50,6 +62,12 @@ app.get("/categories", (req, res) => {
 });
 
 // Start the server
-app.listen(PORT, () => {
-  console.log(`Server is running at http://localhost:${PORT}`);
+app.listen(process.env.PORT || 3000, async () => {
+  try {
+    await testConnection();
+    console.log("Database connection test completed successfully.");
+    console.log("Server is running on port " + (process.env.PORT || 3000));
+  } catch (error) {
+    console.error("Error connecting to the database:", error.message);
+  }
 });
