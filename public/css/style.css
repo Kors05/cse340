@@ -121,3 +121,14 @@ footer p {
   border-radius: 10px;
   object-fit: cover;
 }
+
+
+/* Home page image styling */
+.home-image {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  margin: 30px auto;
+  object-fit: contain;
+}
