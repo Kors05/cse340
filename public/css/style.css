@@ -131,3 +131,26 @@ footer p {
   margin: 30px auto;
   object-fit: contain;
 }
+
+
+/* Categories Page */
+
+.category-list {
+  list-style: none;
+  padding: 0;
+  margin: 25px 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.category-item {
+  background-color: #f1f6fb;
+  border: 1px solid #d5e3f0;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  font-weight: 600;
+  color: #12355b;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}

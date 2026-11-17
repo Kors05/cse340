@@ -4,6 +4,9 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { testConnection } from "./src/models/db.js";
 import { getAllOrganizations } from "./src/models/organizations.js";
+import { getAllCategories } from "./src/models/categories.js";
+import { getAllProjects } from "./src/models/projects.js";
+
 
 // Get the current directory
 const __filename = fileURLToPath(import.meta.url);
@@ -47,19 +50,38 @@ app.get("/organizations", async (req, res) => {
   }
 });
 
+
 // Projects route
-app.get("/projects", (req, res) => {
-  res.render("projects", {
-    title: "Projects"
-  });
+app.get("/projects", async (req, res) => {
+  try {
+    const projects = await getAllProjects();
+
+    res.render("projects", {
+      title: "Projects",
+      projects: projects
+    });
+  } catch (error) {
+    console.error("Error retrieving projects:", error);
+    res.status(500).send("Error loading projects");
+  }
 });
 
+
 // Categories route
-app.get("/categories", (req, res) => {
-  res.render("categories", {
-    title: "Categories"
-  });
+app.get("/categories", async (req, res) => {
+  try {
+    const categories = await getAllCategories();
+
+    res.render("categories", {
+      title: "Categories",
+      categories: categories
+    });
+  } catch (error) {
+    console.error("Error retrieving categories:", error);
+    res.status(500).send("Error loading categories");
+  }
 });
+
 
 // Start the server
 app.listen(process.env.PORT || 3000, async () => {
