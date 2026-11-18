@@ -1,3 +1,9 @@
+
+-- ========================================
+-- CSE 340 W02: Database Retrieval
+-- Database initialization script
+-- ========================================
+
 -- ========================================
 -- Organization Table
 -- ========================================
@@ -17,6 +23,8 @@ CREATE TABLE project (
     organization_id INTEGER NOT NULL,
     name VARCHAR(150) NOT NULL,
     description TEXT,
+    location VARCHAR(255),
+    date DATE,
     FOREIGN KEY (organization_id)
         REFERENCES organization(organization_id)
 );
@@ -35,12 +43,9 @@ CREATE TABLE category (
 CREATE TABLE project_category (
     project_id INTEGER NOT NULL,
     category_id INTEGER NOT NULL,
-
     PRIMARY KEY (project_id, category_id),
-
     FOREIGN KEY (project_id)
         REFERENCES project(project_id),
-
     FOREIGN KEY (category_id)
         REFERENCES category(category_id)
 );
@@ -48,8 +53,12 @@ CREATE TABLE project_category (
 -- ========================================
 -- Insert Sample Organization Data
 -- ========================================
-
-INSERT INTO organization (name, description, contact_email, logo_filename)
+INSERT INTO organization (
+    name,
+    description,
+    contact_email,
+    logo_filename
+)
 VALUES
 (
     'BrightFuture Builders',
@@ -70,50 +79,59 @@ VALUES
     'unityserve-logo.png'
 );
 
-
 -- ========================================
 -- Insert Sample Project Data
 -- ========================================
-
-INSERT INTO project (organization_id, name, description)
+-- Locations and dates are illustrative sample data.
+INSERT INTO project (
+    organization_id,
+    name,
+    description,
+    location,
+    date
+)
 VALUES
 (
     (SELECT organization_id FROM organization
      WHERE name = 'BrightFuture Builders'),
     'Community Housing Renovation',
-    'Renovating homes and community facilities for families in need.'
+    'Renovating homes and community facilities for families in need.',
+    'Abuja, Nigeria',
+    '2026-11-20'
 ),
 (
     (SELECT organization_id FROM organization
      WHERE name = 'GreenHarvest Growers'),
     'Urban Community Garden',
-    'Creating sustainable gardens and teaching urban farming skills.'
+    'Creating sustainable gardens and teaching urban farming skills.',
+    'Calabar, Nigeria',
+    '2026-11-25'
 ),
 (
     (SELECT organization_id FROM organization
      WHERE name = 'UnityServe Volunteers'),
     'Community Food Drive',
-    'Collecting and distributing food supplies to vulnerable families.'
+    'Collecting and distributing food supplies to vulnerable families.',
+    'Lagos, Nigeria',
+    '2026-12-05'
 );
-
-
 
 -- ========================================
 -- Insert Sample Category Data
 -- ========================================
-
 INSERT INTO category (name)
 VALUES
     ('Community Development'),
     ('Environmental Sustainability'),
     ('Food Assistance');
 
-
 -- ========================================
 -- Associate Projects with Categories
 -- ========================================
-
-INSERT INTO project_category (project_id, category_id)
+INSERT INTO project_category (
+    project_id,
+    category_id
+)
 VALUES
 (
     (SELECT project_id FROM project

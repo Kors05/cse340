@@ -2,7 +2,7 @@
 import db from "./db.js";
 
 // Retrieve all categories from PostgreSQL
-export async function getAllCategories() {
+export const getAllCategories = async () => {
   const result = await db.query(
     `SELECT category_id, name
      FROM category
@@ -10,4 +10,4 @@ export async function getAllCategories() {
   );
 
   return result.rows;
-}
+};

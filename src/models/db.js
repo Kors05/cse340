@@ -1,3 +1,4 @@
+
 import { Pool } from "pg";
 
 // Create a PostgreSQL connection pool
@@ -16,7 +17,7 @@ if (
   process.env.ENABLE_SQL_LOGGING === "true"
 ) {
   db = {
-    async query(text, params) {
+    query: async (text, params) => {
       try {
         const start = Date.now();
         const result = await pool.query(text, params);
@@ -35,7 +36,7 @@ if (
       }
     },
 
-    async close() {
+    end: async () => {
       await pool.end();
     },
   };
