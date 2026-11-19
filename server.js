@@ -3,9 +3,9 @@ import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 import { testConnection } from "./src/models/db.js";
-import { getAllOrganizations } from "./src/models/organizations.js";
-import { getAllCategories } from "./src/models/categories.js";
-import { getAllProjects } from "./src/models/projects.js";
+import organizationsRoutes from "./src/routes/organizationsRoutes.js";
+import categoriesRoutes from "./src/routes/categoriesRoutes.js";
+import projectsRoutes from "./src/routes/projectsRoutes.js";
 
 
 // Get the current directory
@@ -34,54 +34,30 @@ app.get("/", (req, res) => {
   });
 });
 
-// Organizations route
-app.get("/organizations", async (req, res) => {
-  try {
-    const organizations = await getAllOrganizations();
-    console.log("ORGANIZATIONS ROUTE TEST:", organizations);
+// Organization routes (MVC)
+app.use("/", organizationsRoutes);
 
-    res.render("organizations", {
-      title: "Organizations",
-      organizations: organizations
-    });
-  } catch (error) {
-    console.error("Error retrieving organizations:", error);
-    res.status(500).send("Error loading organizations");
-  }
+// Project routes (MVC)
+app.use("/", projectsRoutes);
+
+// Category routes (MVC)
+app.use("/", categoriesRoutes);
+
+// Handle routes that do not exist
+app.use((req, res) => {
+  res.status(404).render("404", {
+    title: "Page Not Found",
+  });
 });
 
+// Handle unexpected server errors
+app.use((error, req, res, next) => {
+  console.error("Server error:", error);
 
-// Projects route
-app.get("/projects", async (req, res) => {
-  try {
-    const projects = await getAllProjects();
-
-    res.render("projects", {
-      title: "Projects",
-      projects: projects
-    });
-  } catch (error) {
-    console.error("Error retrieving projects:", error);
-    res.status(500).send("Error loading projects");
-  }
+  res.status(500).render("500", {
+    title: "Internal Server Error",
+  });
 });
-
-
-// Categories route
-app.get("/categories", async (req, res) => {
-  try {
-    const categories = await getAllCategories();
-
-    res.render("categories", {
-      title: "Categories",
-      categories: categories
-    });
-  } catch (error) {
-    console.error("Error retrieving categories:", error);
-    res.status(500).send("Error loading categories");
-  }
-});
-
 
 // Start the server
 app.listen(process.env.PORT || 3000, async () => {

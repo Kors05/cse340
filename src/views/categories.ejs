@@ -2,7 +2,7 @@
 <%- include("partials/header") %>
 
 <main>
-  <h2><%= title %></h2>
+  <h1><%= title %></h1>
 
   <p>
     Welcome to the Categories page.
@@ -11,13 +11,15 @@
   </p>
 
   <section>
-    <h3>Project Categories</h3>
+    <h2>Project Categories</h2>
 
     <% if (categories && categories.length > 0) { %>
       <ul class="category-list">
         <% categories.forEach(category => { %>
           <li class="category-item">
-            <%= category.name %>
+            <a href="/category/<%= category.category_id %>">
+              <%= category.name %>
+            </a>
           </li>
         <% }); %>
       </ul>

@@ -2,37 +2,62 @@
 <%- include("partials/header") %>
 
 <main>
-  <h2><%= title %></h2>
+  <h1><%= title %></h1>
 
   <p>
     Welcome to the Projects page.
-    Explore our community service projects,
+    Explore our upcoming community service projects,
     their objectives, and the organizations
     responsible for them.
   </p>
 
   <section>
-    <h3>Our Projects</h3>
+    <h2>Upcoming Service Projects</h2>
 
     <% if (projects && projects.length > 0) { %>
       <div class="project-list">
         <% projects.forEach(project => { %>
           <article class="project-card">
-            <h4><%= project.name %></h4>
+
+            <h3>
+              <a href="/project/<%= project.project_id %>">
+                <%= project.name %>
+              </a>
+            </h3>
 
             <p>
               <%= project.description %>
             </p>
 
+            <% if (project.location) { %>
+              <p>
+                <strong>Location:</strong>
+                <%= project.location %>
+              </p>
+            <% } %>
+
+            <% if (project.date) { %>
+              <p>
+                <strong>Date:</strong>
+                <%= new Date(project.date).toLocaleDateString(
+                  "en-US",
+                  { timeZone: "UTC" }
+                ) %>
+              </p>
+            <% } %>
+
             <p>
               <strong>Organization:</strong>
-              <%= project.organization_name %>
+              <a href="/organization/<%= project.organization_id %>">
+                <%= project.organization_name %>
+              </a>
             </p>
+
           </article>
         <% }); %>
       </div>
     <% } else { %>
-      <p>No projects are currently available.</p>
+      <p>No upcoming service projects are currently available.</p>
     <% } %>
   </section>
 </main>

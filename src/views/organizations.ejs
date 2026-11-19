@@ -1,3 +1,4 @@
+
 <%- include('partials/header') %>
 
 <main>
@@ -8,17 +9,26 @@
   <ul>
     <% organizations.forEach(organization => { %>
       <li>
-        <strong><%= organization.name %></strong>
+        <h2>
+          <a href="/organization/<%= organization.organization_id %>">
+            <%= organization.name %>
+          </a>
+        </h2>
+
         <p><%= organization.description %></p>
+
         <p>
-          Contact:
+          <strong>Contact:</strong>
           <%= organization.contact_email %>
         </p>
-        <img
-          src="/images/<%= organization.logo_filename %>"
-          alt="<%= organization.name %> logo"
-          width="150"
-        >
+
+        <% if (organization.logo_filename) { %>
+          <img
+            src="/images/<%= organization.logo_filename %>"
+            alt="<%= organization.name %> logo"
+            width="150"
+          >
+        <% } %>
       </li>
     <% }); %>
   </ul>
